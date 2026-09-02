@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   MEASUREMENT_FIELDS,
   type Colorway,
@@ -65,6 +65,29 @@ export default function DesignFlow({
   const [custPhone, setCustPhone] = useState("");
   const [submitState, setSubmitState] = useState<SubmitState>({ kind: "idle" });
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const [otpRequired, setOtpRequired] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
+  const [otpMsg, setOtpMsg] = useState("");
+
+  useEffect(() => {
+    if (!apiUrl) return;
+    fetch(`${apiUrl}/otp/config`)
+      .then((r) => r.json())
+      .then((c) => setOtpRequired(!!c?.required))
+      .catch(() => setOtpRequired(false));
+  }, [apiUrl]);
+
+  async function otpCall(path: string, body: Record<string, string>) {
+    const res = await fetch(`${apiUrl}${path}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) throw new Error(String(data?.message ?? "হয়নি, আবার চেষ্টা করুন"));
+  }
 
   const colorway = colorways.find((c) => c.id === colorwayId) ?? null;
   const lace = laceId === "none" ? null : laces.find((l) => l.id === laceId) ?? null;
@@ -88,6 +111,10 @@ export default function DesignFlow({
 
   async function submitOrder() {
     if (!apiUrl || !ready || !garment || !style) return;
+    if (otpRequired && !otpVerified) {
+      setSubmitState({ kind: "error", message: "আগে ফোন নম্বরটা OTP দিয়ে যাচাই করুন" });
+      return;
+    }
     setSubmitState({ kind: "submitting" });
     try {
       const res = await fetch(`${apiUrl}/orders`, {
@@ -451,6 +478,57 @@ export default function DesignFlow({
                 />
               </label>
             </div>
+            {otpRequired && (
+              <div className="rounded-sm border border-sand/30 bg-foil/5 p-3">
+                {otpVerified ? (
+                  <p className="text-sm text-navy-deep">ফোন নম্বর যাচাই হয়েছে ✓</p>
+                ) : (
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        void otpCall("/otp/send", { phone: custPhone })
+                          .then(() => {
+                            setOtpSent(true);
+                            setOtpMsg("কোড পাঠানো হয়েছে, SMS দেখুন");
+                          })
+                          .catch((e) => setOtpMsg(e.message))
+                      }
+                      className="rounded-sm border border-navy px-4 py-2 text-sm text-navy"
+                    >
+                      {otpSent ? "আবার কোড পাঠান" : "ফোনে কোড পাঠান"}
+                    </button>
+                    {otpSent && (
+                      <>
+                        <input
+                          value={otpCode}
+                          onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ""))}
+                          inputMode="numeric"
+                          maxLength={6}
+                          placeholder="৬ সংখ্যার কোড"
+                          className="w-32 rounded-sm border border-sand/40 bg-card px-3 py-2 text-base"
+                        />
+                        <button
+                          type="button"
+                          onClick={() =>
+                            void otpCall("/otp/verify", { phone: custPhone, code: otpCode })
+                              .then(() => {
+                                setOtpVerified(true);
+                                setOtpMsg("");
+                              })
+                              .catch((e) => setOtpMsg(e.message))
+                          }
+                          className="rounded-sm bg-navy px-4 py-2 text-sm text-ivory"
+                        >
+                          যাচাই করুন
+                        </button>
+                      </>
+                    )}
+                    {otpMsg && <p className="w-full text-xs text-rosegold-deep">{otpMsg}</p>}
+                  </div>
+                )}
+              </div>
+            )}
             {submitState.kind === "error" && (
               <p className="text-sm text-rosegold-deep">{submitState.message}</p>
             )}

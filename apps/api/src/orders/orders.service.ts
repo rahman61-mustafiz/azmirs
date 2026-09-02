@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { supabaseAdmin } from '../supabase.js';
 import { CreateOrderDto } from './create-order.dto.js';
+import { OtpService } from '../otp/otp.service.js';
 
 /* Server-side truth for measurements (inches). Mirrors
    apps/web/lib/supabase.ts MEASUREMENT_FIELDS — keep the two in sync. */
@@ -37,10 +38,14 @@ type Priced = {
 
 @Injectable()
 export class OrdersService {
+  constructor(private readonly otp: OtpService) {}
+
   /* The price is ALWAYS recalculated here from the database. Nothing the
      frontend sends about money is read, let alone trusted. */
   async create(dto: CreateOrderDto) {
     const db = supabaseAdmin();
+    /* Phone must be OTP-verified when OTP is enabled (plan ৪.১ step 9) */
+    await this.otp.assertVerified(dto.customer.phone);
 
     /* 1. Load every referenced row and verify the relationships */
     const [design, colorway, garment, style, lace, compat] = await Promise.all([
