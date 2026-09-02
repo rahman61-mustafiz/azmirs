@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="bn" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azmirs | আপনার মাপে বানানো কাস্টম ড্রেস</title>
+<meta name="description" content="কটনের গজ কাপড়, আপনার বাছা প্রিন্ট, হাতের পুঁথির কাজ, আর কোনো সাইজ চার্ট নেই। Azmirs বানায় শুধু একটা মাপে: আপনারটা।">
+<meta name="theme-color" content="#0C1421">
+<meta name="google" content="notranslate">
+<!-- DEPLOY STEP: patch og:url and og:image with the live absolute URL before zipping -->
+<meta property="og:title" content="Azmirs | আপনার মাপে বানানো কাস্টম ড্রেস">
+<meta property="og:description" content="কটনের গজ কাপড়, হাতের পুঁথির কাজ, কোনো সাইজ চার্ট নেই।">
+<meta property="og:url" content="https://azmirs.com/">
+<meta property="og:image" content="https://azmirs.com/assets/hero-ending.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230C1421'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23C9A227' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Instrument+Sans:wght@400;500&family=DM+Mono:wght@400;500&family=Tiro+Bangla&family=Anek+Bangla:wght@300;400;500&family=Noto+Sans+Bengali:wght@300;400;500&display=swap">
+<style>
+:root{
+  --canvas:#0C1421;
+  --panel:#1B2A4A;
+  --paper:#FBF8F4;
+  --accent:#C08E6F;
+  --accent-hover:#D6A886;
+  --accent-muted:rgba(192,142,111,.22);
+  --foil:#C9A227;
+  --text-primary:#E7E0D6;
+  --text-secondary:#A39A8C;
+  --line:rgba(192,142,111,.2);
+  --line-soft:rgba(231,224,214,.09);
+  --disp:"Fraunces",Georgia,serif;
+  --bnd:"Tiro Bangla",serif;
+  --bn:"Anek Bangla","Noto Sans Bengali",sans-serif;
+  --body:"Instrument Sans",system-ui,sans-serif;
+  --mono:"DM Mono",ui-monospace,monospace;
+  --tshadow:0 1px 2px rgba(5,7,14,.95),0 3px 12px rgba(5,7,14,.78),0 10px 44px rgba(5,7,14,.8);
+  --ease:cubic-bezier(.22,.8,.28,1);
+  --ease-soft:cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box}
+html{overflow-x:hidden;overflow-y:auto}
+body{overflow:visible}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--canvas);color:var(--text-primary);
+  font-family:var(--bn);font-size:17px;line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+  opacity:0;transition:opacity .8s var(--ease-soft);
+}
+body.ready{opacity:1}
+img{max-width:100%;display:block}
+a{color:var(--accent-hover)}
+h1,h2,h3{font-family:var(--bnd);font-weight:400;color:var(--paper);line-height:1.3;text-wrap:balance;margin:0}
+p{margin:0 0 16px;max-width:64ch}
+.en{font-family:var(--disp);font-weight:300}
+.mono{font-family:var(--mono)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--canvas);padding:10px 18px;z-index:100;font-family:var(--bn)}
+.skip:focus{left:12px;top:12px}
+:focus-visible{outline:2px solid var(--accent-hover);outline-offset:3px}
+
+/* ambient environment layer */
+.env{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 90% 70% at 78% 12%,rgba(201,162,39,.05),transparent 55%),
+             radial-gradient(ellipse 70% 60% at 18% 85%,rgba(192,142,111,.045),transparent 60%);}
+.env::after{content:"";position:absolute;inset:0;opacity:.5;
+  background-image:radial-gradient(circle at 22% 34%,rgba(231,224,214,.06) 0 1px,transparent 2px),
+    radial-gradient(circle at 71% 58%,rgba(201,162,39,.05) 0 1px,transparent 2px),
+    radial-gradient(circle at 48% 81%,rgba(231,224,214,.045) 0 1px,transparent 2px);
+  background-size:900px 900px;animation:envdrift 90s linear infinite -30s}
+@keyframes envdrift{from{transform:translateY(0)}to{transform:translateY(-900px)}}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;
+  justify-content:space-between;padding:14px 26px;
+  background:linear-gradient(to bottom,rgba(12,20,33,.85),rgba(12,20,33,0));
+  transition:background .5s var(--ease-soft)}
+nav.solid{background:rgba(12,20,33,.92);border-bottom:1px solid var(--line-soft);backdrop-filter:blur(10px)}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+.brand img{height:34px;width:auto}
+.brand span{font-family:var(--disp);font-weight:300;font-size:14px;letter-spacing:.4em;color:var(--paper);text-transform:uppercase}
+.nav-cta{font-family:var(--bn);font-size:15px;font-weight:500;text-decoration:none;color:#101A2C;
+  background:linear-gradient(180deg,#E7C355,#C9A227);padding:9px 22px;border-radius:2px;
+  border:1px solid rgba(231,195,85,.5);transition:filter .3s var(--ease-soft)}
+.nav-cta:hover{filter:brightness(1.08)}
+.nav-right{display:flex;gap:10px;align-items:center}
+.nav-links{display:flex;gap:22px;align-items:center;margin-left:auto;margin-right:8px}
+.nav-links a{font-size:15px;text-decoration:none;color:var(--text-primary);opacity:.85;transition:opacity .3s,color .3s}
+.nav-links a:hover{opacity:1;color:var(--accent-hover)}
+@media (max-width:860px){.nav-links{display:none}}
+.menu-btn{display:none;background:rgba(12,20,33,.5);border:1px solid var(--line);border-radius:2px;
+  color:var(--text-primary);width:42px;height:40px;cursor:pointer;align-items:center;justify-content:center;
+  transition:border-color .3s var(--ease-soft)}
+.menu-btn:hover{border-color:var(--accent)}
+@media (max-width:860px){.menu-btn{display:inline-flex}}
+.mobile-menu{position:fixed;top:63px;left:0;right:0;z-index:49;background:rgba(12,20,33,.97);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:8px 26px 20px;
+  display:none;flex-direction:column}
+.mobile-menu.open{display:flex}
+.mobile-menu a{padding:14px 2px;text-decoration:none;color:var(--text-primary);font-size:17px;
+  border-bottom:1px solid var(--line-soft)}
+.mobile-menu a:hover{color:var(--accent-hover)}
+.mobile-menu a:last-child{border-bottom:0}
+@media (max-width:860px){nav .nav-cta{display:none}}
+@media (max-width:640px){.brand span{letter-spacing:.22em;font-size:12px}}
+.mobile-menu .nav-cta{display:inline-flex;margin-top:16px;align-self:flex-start;border-bottom:0}
+.lang-btn{font-family:var(--mono);font-size:13px;letter-spacing:.08em;background:rgba(12,20,33,.5);
+  color:var(--text-primary);border:1px solid var(--line);border-radius:2px;padding:8px 14px;cursor:pointer;
+  transition:border-color .3s var(--ease-soft),color .3s var(--ease-soft)}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent-hover)}
+body.en{font-family:var(--body)}
+body.en h1,body.en h2,body.en h3,body.en .band .h,body.en .static-hero h1,
+body.en .done-line,body.en .faq summary{font-family:var(--disp);font-weight:300}
+body.en .band .h{font-size:clamp(28px,3.3vw,46px)}
+body.en h3{font-weight:500}
+
+/* measuring tape rail */
+.tape{position:fixed;left:0;top:0;bottom:0;width:30px;z-index:40;pointer-events:none;opacity:0;transition:opacity .8s}
+body.below-hero .tape{opacity:1}
+.tape svg{height:100%;width:30px}
+.tape line.rail{stroke:var(--foil);stroke-width:1;stroke-dasharray:1 0;opacity:.5}
+.tape .tick{stroke:var(--accent);stroke-width:1;opacity:.35;transition:opacity .5s,stroke .5s}
+.tape .tick.lit{stroke:var(--foil);opacity:1}
+@media (max-width:900px){.tape{display:none}}
+
+/* ===== HERO ===== */
+.hero{position:relative;height:600vh}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--canvas)}
+.poster,.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.poster{background-size:cover;background-position:center}
+.stage video{opacity:0;transition:opacity .6s var(--ease-soft);will-change:transform}
+.stage.video-ready video{opacity:1}
+.scrim{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 120% 90% at 50% 45%,rgba(8,12,22,0) 35%,rgba(8,12,22,.62) 100%)}
+.band{position:absolute;inset:0;display:flex;align-items:center;opacity:0;pointer-events:none}
+.band .inner{position:relative;width:min(560px,44vw);margin-left:auto;margin-right:7vw;text-shadow:var(--tshadow)}
+.band::before{content:"";position:absolute;top:8%;bottom:8%;left:46%;right:0;pointer-events:none;
+  opacity:calc(.25 + .75*var(--k,1));
+  background:radial-gradient(ellipse 74% 62% at 60% 50%,rgba(5,8,16,.66) 0%,rgba(5,8,16,.44) 46%,rgba(5,8,16,0) 76%)}
+.band .kick{font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--accent-hover);
+  text-transform:uppercase;margin-bottom:12px}
+.band h2,.band .h{font-family:var(--bnd);font-size:clamp(30px,3.6vw,50px);line-height:1.25;color:var(--paper)}
+.band .sub{font-size:clamp(16px,1.4vw,19px);color:var(--text-primary);margin-top:14px;max-width:44ch}
+.band .w{display:inline-block;
+  opacity:var(--kc);transform:translateY(calc((1 - var(--kc))*-26px))}
+.band[data-fx="punch"] .w{transform:scale(calc(.6 + .52*var(--kc) - .12*var(--ks,0)))}
+.band[data-fx="rise"] .w{transform:translateY(calc((1 - var(--kc))*30px))}
+.b5-sub{opacity:var(--ks2,0);transform:translateY(calc((1 - var(--ks2,0))*18px))}
+.b5-cta{opacity:var(--kb,0);transform:translateY(calc((1 - var(--kb,0))*14px));margin-top:26px}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--bn);font-size:17px;font-weight:500;
+  text-decoration:none;color:#101A2C;background:linear-gradient(180deg,#E7C355,#C9A227);padding:14px 36px;border-radius:2px;
+  border:1px solid rgba(231,195,85,.5);box-shadow:0 6px 24px rgba(201,162,39,.32);
+  transition:box-shadow .3s var(--ease-soft),transform .3s var(--ease-soft),filter .3s var(--ease-soft);text-shadow:none}
+.btn:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 10px 32px rgba(201,162,39,.45)}
+.btn.ghost{background:transparent;color:#E7C355;border-color:rgba(231,195,85,.65);box-shadow:none}
+.btn.ghost:hover{background:rgba(201,162,39,.12);filter:none}
+.cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);text-align:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--text-secondary);
+  text-transform:uppercase;opacity:0;transition:opacity 1s}
+.stage.video-ready .cue,.stage.video-failed .cue{opacity:.8}
+.cue::after{content:"";display:block;width:1px;height:34px;margin:10px auto 0;
+  background:linear-gradient(var(--accent),transparent);animation:cuedrop 2.2s var(--ease-soft) infinite -1s}
+@keyframes cuedrop{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.ring{position:absolute;bottom:30px;right:30px;width:34px;height:34px;color:var(--accent)}
+.ring circle{transition:stroke-dashoffset .2s linear}
+
+/* static hero (phones, portrait, reduced motion) */
+.static-hero{display:none;position:relative;min-height:100svh;align-items:flex-end;
+  background:var(--canvas)}
+.static-hero .bg{position:absolute;inset:0;background-size:cover;background-position:28% center;
+  background-image:linear-gradient(to top,rgba(12,20,33,.94) 8%,rgba(12,20,33,.35) 55%,rgba(12,20,33,.25)),url('assets/hero-ending.jpg')}
+.static-hero .inner{position:relative;padding:120px 26px 64px;max-width:640px;text-shadow:var(--tshadow)}
+.static-hero h1{font-size:clamp(34px,9vw,50px);margin-bottom:14px}
+.static-hero p{font-size:17px;color:var(--text-primary);margin-bottom:26px}
+@media (max-width:720px),
+       (orientation:portrait) and (max-width:1024px),
+       (orientation:portrait) and (pointer:coarse),
+       (orientation:landscape) and (pointer:coarse) and (max-height:560px),
+       (prefers-reduced-motion:reduce){
+  .hero{display:none}
+  .static-hero{display:flex}
+}
+@media (max-height:560px){.cue{display:none}}
+
+/* ===== SECTIONS ===== */
+main{position:relative;z-index:1}
+section{position:relative;padding:110px 26px}
+.shell{max-width:1080px;margin:0 auto}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 14px}
+.sec-title{font-size:clamp(28px,4vw,44px);margin-bottom:14px}
+.lede{font-size:18px;color:var(--text-secondary);max-width:56ch}
+
+/* entrance choreography */
+.rv .part{opacity:0;transform:translateY(36px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in .part{opacity:1;transform:none}
+.rv.in .part:nth-child(2){transition-delay:.12s}
+.rv.in .part:nth-child(3){transition-delay:.24s}
+.rv.in .part:nth-child(4){transition-delay:.36s}
+.rv.in .part:nth-child(5){transition-delay:.48s}
+.rv.done .part{transition-delay:0s!important}
+/* staggered inner rows: measurement list, timeline, tiers, faq */
+.rv .mrow{opacity:0;transform:translateX(30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in .mrow{opacity:1;transform:none}
+.rv.in .mrow:nth-child(1){transition-delay:.25s}.rv.in .mrow:nth-child(2){transition-delay:.33s}
+.rv.in .mrow:nth-child(3){transition-delay:.41s}.rv.in .mrow:nth-child(4){transition-delay:.49s}
+.rv.in .mrow:nth-child(5){transition-delay:.57s}.rv.in .mrow:nth-child(6){transition-delay:.65s}
+.rv.in .mrow:nth-child(7){transition-delay:.73s}.rv.in .mrow:nth-child(8){transition-delay:.81s}
+.rv.in .mrow:nth-child(9){transition-delay:.89s}.rv.in .mrow:nth-child(10){transition-delay:.97s}
+.rv.done .mrow{transition-delay:0s!important}
+.rv .tl-item{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in .tl-item{opacity:1;transform:none}
+.rv.in .tl-item:nth-child(2){transition-delay:.12s}.rv.in .tl-item:nth-child(3){transition-delay:.24s}
+.rv.in .tl-item:nth-child(4){transition-delay:.36s}.rv.in .tl-item:nth-child(5){transition-delay:.48s}
+.rv.in .tl-item:nth-child(6){transition-delay:.6s}.rv.in .tl-item:nth-child(7){transition-delay:.72s}
+.rv.done .tl-item{transition-delay:0s!important}
+.rv .tier{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in .tier{opacity:1;transform:none}
+.rv.in .tier:nth-child(2){transition-delay:.15s}.rv.in .tier:nth-child(3){transition-delay:.3s}
+.rv.done .tier{transition-delay:0s!important}
+.rv .faq details{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in .faq details{opacity:1;transform:none}
+.rv.in .faq details:nth-child(2){transition-delay:.1s}.rv.in .faq details:nth-child(3){transition-delay:.2s}
+.rv.in .faq details:nth-child(4){transition-delay:.3s}.rv.in .faq details:nth-child(5){transition-delay:.4s}
+.rv.done .faq details{transition-delay:0s!important}
+
+/* 01 process */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:44px}
+.step{background:var(--panel);border:1px solid var(--line-soft);border-radius:3px;overflow:hidden}
+.step img{aspect-ratio:16/10;object-fit:cover;width:100%}
+.step .tx{padding:18px 20px 22px}
+.step .n{font-family:var(--mono);font-size:12px;color:var(--foil);letter-spacing:.1em}
+.step h3{font-size:20px;margin:6px 0 6px}
+.step p{font-size:15px;color:var(--text-secondary);margin:0;line-height:1.7}
+
+/* 02 catalog */
+.cat{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:18px;margin-top:44px;align-items:stretch}
+@media (max-width:820px){.cat{grid-template-columns:1fr 1fr}.cat .wide{grid-column:1/-1}}
+.cat figure{margin:0;position:relative;border-radius:3px;overflow:hidden;border:1px solid var(--line-soft)}
+.cat img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease-soft)}
+.cat figure:hover img{transform:scale(1.03)}
+.cat figcaption{position:absolute;left:0;right:0;bottom:0;padding:36px 16px 12px;
+  background:linear-gradient(transparent,rgba(8,12,22,.85));font-size:13.5px;color:var(--text-primary)}
+.cat .tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--canvas);background:var(--accent);border-radius:2px;padding:2px 8px;margin-bottom:5px}
+
+/* 03 measure: interactive */
+.measure{background:var(--panel);border:1px solid var(--line-soft);border-radius:4px;
+  padding:44px 30px;margin-top:44px;display:grid;grid-template-columns:minmax(240px,380px) 1fr;gap:44px;align-items:center}
+@media (max-width:760px){.measure{grid-template-columns:1fr}}
+.silhouette{width:100%;max-width:380px;margin:0 auto;border-radius:3px;overflow:hidden}
+.silhouette .mline{stroke:var(--foil);stroke-width:7;fill:none;stroke-linecap:round;
+  stroke-dasharray:var(--len);stroke-dashoffset:calc(var(--len)*(1 - var(--mp,0)))}
+.silhouette text{font-family:var(--bn),sans-serif;font-size:46px;fill:#D6A886;opacity:0;
+  paint-order:stroke;stroke:rgba(8,12,22,.85);stroke-width:8}
+.silhouette text.on{opacity:1;transition:opacity .5s}
+.hold-btn{font-family:var(--bn);font-size:17px;color:var(--paper);background:var(--canvas);
+  border:1px solid var(--accent);border-radius:2px;padding:16px 34px;cursor:pointer;
+  transition:background .3s var(--ease-soft);user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.hold-btn:hover{background:var(--accent-muted)}
+.measure .done-line{font-family:var(--bnd);font-size:22px;color:var(--foil);opacity:0;transform:translateY(10px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease);margin-top:18px}
+.measure.complete .done-line{opacity:1;transform:none}
+
+/* 04 sizing paths */
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:44px}
+@media (max-width:720px){.paths{grid-template-columns:1fr}}
+.path{border:1px solid var(--line);border-radius:3px;padding:30px 28px;background:rgba(27,42,74,.45)}
+.path h3{font-size:22px;margin-bottom:10px}
+.path h3 .mono{font-size:12px;color:var(--foil);letter-spacing:.12em;display:block;margin-bottom:8px}
+.path p{font-size:15.5px;color:var(--text-secondary);margin-bottom:0;line-height:1.75}
+.path .ret{margin-top:14px;padding-top:14px;border-top:1px solid var(--line-soft);font-size:14.5px;color:var(--text-primary)}
+
+/* 05 craft + price */
+.craft{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:44px;align-items:center}
+@media (max-width:820px){.craft{grid-template-columns:1fr}}
+.craft img{border-radius:3px;border:1px solid var(--line-soft)}
+.tiers{display:grid;gap:12px}
+.tier{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:baseline;
+  border:1px solid var(--line-soft);border-left:2px solid var(--accent);border-radius:2px;
+  padding:16px 20px;background:rgba(27,42,74,.35);transition:border-color .3s,background .3s}
+.tier:hover{background:rgba(27,42,74,.6);border-left-color:var(--foil)}
+.tier h3{font-size:18px}
+.tier .price{font-family:var(--mono);font-size:16px;color:var(--foil);white-space:nowrap;font-variant-numeric:tabular-nums}
+.tier p{grid-column:1/-1;font-size:14px;color:var(--text-secondary);margin:0;line-height:1.65}
+
+/* 06 timeline */
+.tl{position:relative;margin-top:54px;padding-left:26px}
+.tl .rail{position:absolute;left:0;top:6px;bottom:6px;width:2px;background:var(--line-soft)}
+.tl .rail i{position:absolute;left:0;top:0;width:2px;height:calc(var(--tp,0)*100%);background:var(--foil);display:block}
+.tl-item{position:relative;padding:0 0 30px 22px}
+.tl-item::before{content:"";position:absolute;left:-31px;top:8px;width:9px;height:9px;border-radius:50%;
+  background:var(--canvas);border:2px solid var(--accent);transition:background .4s}
+.tl-item.on::before{background:var(--foil);border-color:var(--foil)}
+.tl-item h3{font-size:18px}
+.tl-item p{font-size:14.5px;color:var(--text-secondary);margin:4px 0 0;line-height:1.7}
+.tl-note{margin-top:8px;font-family:var(--mono);font-size:13px;color:var(--accent-hover)}
+
+/* 07 faq */
+.faq{margin-top:44px;border-top:1px solid var(--line-soft)}
+.faq details{border-bottom:1px solid var(--line-soft)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:baseline;
+  gap:18px;padding:20px 4px;font-family:var(--bnd);font-size:19px;color:var(--paper)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--accent);transition:transform .3s var(--ease-soft)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .a{padding:0 4px 22px;font-size:15.5px;color:var(--text-secondary);max-width:64ch;line-height:1.8}
+
+/* 08 cta */
+.cta-sec{text-align:center;padding:130px 26px;position:relative;overflow:hidden}
+.cta-sec .glow{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 50% at 50% 60%,rgba(192,142,111,.1),transparent 70%)}
+.cta-sec h2{font-size:clamp(32px,5vw,52px)}
+.cta-sec .lede{margin:16px auto 36px}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ===== ivory paper sections: the lookbook rhythm ===== */
+section.paper{background:var(--paper);border-top:1px solid rgba(201,162,39,.4);border-bottom:1px solid rgba(201,162,39,.4)}
+.paper .kicker{color:#A5673C}
+.paper .sec-title,.paper h3{color:#16233C}
+.paper .lede{color:#6E6354}
+.paper .step{background:#FFFFFF;border:1px solid rgba(27,42,74,.14);box-shadow:0 10px 34px rgba(27,42,74,.08)}
+.paper .step .n{color:#A5673C}
+.paper .step p{color:#6E6354}
+.paper .measure{background:#FFFFFF;border:1px solid rgba(27,42,74,.14);box-shadow:0 10px 34px rgba(27,42,74,.08)}
+.paper .hold-btn{background:#16233C;color:var(--paper);border-color:#16233C}
+.paper .hold-btn:hover{background:#24365C}
+.paper .measure .done-line{color:#A5673C}
+.paper .tl .rail{background:rgba(27,42,74,.15)}
+.paper .tl-item::before{background:var(--paper)}
+.paper .tl-item p{color:#6E6354}
+.paper .tl-note{color:#A5673C}
+/* measurement form-preview rows */
+.unit-note{font-size:15px;color:#4A4438;margin-bottom:14px}
+.unit-note b{color:#16233C;font-weight:500}
+.mrows{display:grid;gap:0;margin-bottom:22px}
+.mrow{display:grid;grid-template-columns:38px 1fr 96px;align-items:center;gap:10px;
+  padding:8px 0;border-bottom:1px solid rgba(27,42,74,.1)}
+.mrow .mnum{font-family:var(--mono);font-size:12px;color:#A5673C}
+.mrow .mname{font-size:16px;color:#16233C}
+.mrow .mbox{height:34px;border:1px solid rgba(27,42,74,.28);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;font-family:var(--mono);
+  font-size:14px;color:#16233C;background:#FDFCFA;transition:border-color .4s,background .4s}
+.mrow.on .mbox{border-color:#C9A227;background:rgba(201,162,39,.08)}
+.mrow.on .mbox::after{content:attr(data-v)}
+
+footer{border-top:1px solid var(--line-soft);padding:44px 26px 54px;position:relative;z-index:1}
+footer .shell{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
+footer p{font-size:13.5px;color:var(--text-secondary);margin:0;max-width:60ch}
+footer img{height:40px}
+
+@media (pointer:coarse){.btn,.nav-cta,.hold-btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center}}
+
+/* pause everything on hidden tab */
+body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
+
+/* reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  body{opacity:1}
+  .rv .part,.rv .mrow,.rv .tl-item,.rv .tier,.rv .faq details{opacity:1;transform:none}
+  .silhouette .mline{stroke-dashoffset:0}
+  .silhouette text{opacity:1}
+  .measure .done-line{opacity:1;transform:none}
+  .tl .rail i{height:100%}
+  .tl-item::before{background:var(--foil);border-color:var(--foil)}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-en="Skip to main content">মূল কনটেন্টে যান</a>
+<div class="env" aria-hidden="true"></div>
+
+<nav id="nav">
+  <a class="brand" href="#top"><img src="assets/logo.png" alt="Azmirs logo"><span>Azmirs</span></a>
+  <div class="nav-links">
+    <a href="catalog.html" data-en="Catalog">ক্যাটালগ</a>
+    <a href="guide.html" data-en="Measurement guide">মাপ গাইড</a>
+    <a href="contact.html" data-en="Contact">যোগাযোগ</a>
+  </div>
+  <div class="nav-right">
+    <button id="langBtn" class="lang-btn" type="button" aria-label="Switch language">EN</button>
+    <a class="nav-cta" href="#start" data-en="Start designing">ডিজাইন শুরু করুন</a>
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="মেনু" aria-expanded="false">
+      <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M3 5.5h14M3 10h14M3 14.5h14" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mmenu" aria-label="মোবাইল মেনু"></div>
+
+<div class="tape" aria-hidden="true">
+  <svg viewBox="0 0 30 1000" preserveAspectRatio="none">
+    <line class="rail" x1="15" y1="0" x2="15" y2="1000"/>
+    <line class="tick" data-s="0" x1="15" y1="125" x2="26" y2="125"/>
+    <line class="tick" data-s="1" x1="15" y1="250" x2="26" y2="250"/>
+    <line class="tick" data-s="2" x1="15" y1="375" x2="26" y2="375"/>
+    <line class="tick" data-s="3" x1="15" y1="500" x2="26" y2="500"/>
+    <line class="tick" data-s="4" x1="15" y1="625" x2="26" y2="625"/>
+    <line class="tick" data-s="5" x1="15" y1="750" x2="26" y2="750"/>
+    <line class="tick" data-s="6" x1="15" y1="875" x2="26" y2="875"/>
+  </svg>
+</div>
+
+<!-- ===== HERO (scrub) ===== -->
+<div class="hero" id="top">
+  <div class="stage" id="stage">
+    <div class="poster" id="poster"></div>
+    <video id="hv" preload="none" muted playsinline aria-hidden="true" tabindex="-1"></video>
+    <div class="scrim" aria-hidden="true"></div>
+
+    <div class="band" data-a="0.00" data-b="0.15" data-fx="drift">
+      <div class="inner">
+        <p class="kick">Azmirs Custom Dress Studio</p>
+        <p class="h" data-en="A bolt of cloth, no one's yet"><span class="w">গজ</span> <span class="w">কাপড়,</span> <span class="w">এখনো</span> <span class="w">কারো</span> <span class="w">না</span></p>
+      </div>
+    </div>
+    <div class="band" data-a="0.19" data-b="0.36" data-fx="drift">
+      <div class="inner">
+        <p class="h" data-en="The print is our own design"><span class="w">প্রিন্টটা</span> <span class="w">আমাদের</span> <span class="w">নিজের</span> <span class="w">আঁকা</span></p>
+        <p class="sub" data-en="Every print comes in several colorways, all on cotton.">প্রতিটা প্রিন্টের একাধিক কালারওয়ে, সব কটনে ছাপা।</p>
+      </div>
+    </div>
+    <div class="band" data-a="0.40" data-b="0.54" data-fx="drift">
+      <div class="inner">
+        <p class="h" data-en="Beadwork set by hand, one stone at a time"><span class="w">পুঁথি</span> <span class="w">বসে</span> <span class="w">হাতে,</span> <span class="w">একটা</span> <span class="w">একটা</span> <span class="w">করে</span></p>
+      </div>
+    </div>
+    <div class="band" data-a="0.68" data-b="0.83" data-fx="punch">
+      <div class="inner">
+        <p class="h" data-en="No S, M, L, XL here"><span class="w">কোনো</span> <span class="w">S,</span> <span class="w">M,</span> <span class="w">L,</span> <span class="w">XL</span> <span class="w">নেই</span></p>
+      </div>
+    </div>
+    <div class="band" data-a="0.87" data-b="1.00" data-fx="rise" id="b5">
+      <div class="inner">
+        <p class="h" data-en="One size only: yours"><span class="w">শুধু</span> <span class="w">একটা</span> <span class="w">মাপ:</span> <span class="w">আপনারটা</span></p>
+        <p class="sub b5-sub" data-en="Printed cotton, hand beadwork, cut to your measurements.">কটনের গজ কাপড়, আপনার বাছা প্রিন্ট, হাতের পুঁথির কাজ।</p>
+        <div class="b5-cta"><a class="btn" href="#start" data-en="Start designing yours">ডিজাইন করা শুরু করুন</a></div>
+      </div>
+    </div>
+
+    <p class="cue" data-en="Scroll">স্ক্রল করুন</p>
+    <svg class="ring" viewBox="0 0 48 48" aria-hidden="true">
+      <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3"
+              stroke-dasharray="126" style="stroke-dashoffset:var(--ld,126)" transform="rotate(-90 24 24)"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ===== STATIC HERO ===== -->
+<div class="static-hero" id="shero">
+  <div class="bg" aria-hidden="true"></div>
+  <div class="inner">
+    <p class="kick" style="font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--accent-hover);text-transform:uppercase;margin-bottom:12px">Azmirs Custom Dress Studio</p>
+    <h1 data-en="Made to your measure, in a print you choose">আপনার মাপে বানানো, আপনার বাছা প্রিন্টে</h1>
+    <p data-en="Cotton yardage, hand beadwork, no size chart.">কটনের গজ কাপড়, হাতের পুঁথির কাজ, কোনো সাইজ চার্ট নেই।</p>
+    <a class="btn" href="#start" data-en="Start designing yours">ডিজাইন করা শুরু করুন</a>
+  </div>
+</div>
+
+<main id="main" tabindex="-1">
+
+<!-- 01 process -->
+<section id="how" class="paper">
+  <div class="shell rv">
+    <p class="kicker part" data-en="How it works">কীভাবে কাজ করে</p>
+    <h2 class="sec-title part" data-en="Your dress in four steps">চার ধাপে আপনার জামা</h2>
+    <p class="lede part" data-en="Every order is one garment, made for one person. These are the steps from start to finish.">প্রতিটা অর্ডার একটাই জামা, একজনের জন্য। শুরু থেকে শেষ পর্যন্ত ধাপগুলো এই।</p>
+    <div class="steps">
+      <div class="step part"><img src="assets/step-1-print.jpg" alt="পাঁচটা কালারওয়েতে ছাপা কটনের গজ কাপড়ের রোল" loading="lazy">
+        <div class="tx"><span class="n" data-en="01">০১</span><h3 data-en="Pick your print">প্রিন্ট বাছুন</h3><p data-en="Choose a print and colorway from the catalog.">ক্যাটালগ থেকে প্রিন্ট আর কালারওয়ে পছন্দ করুন।</p></div></div>
+      <div class="step part"><img src="assets/step-2-cutting.jpg" alt="প্যাটার্ন কাগজ, খড়ি আর কাঁচি" loading="lazy">
+        <div class="tx"><span class="n" data-en="02">০২</span><h3 data-en="Pick the cut">কাটিং বাছুন</h3><p data-en="Neckline, sleeves, length. Cut the way you want it.">গলা, হাতা, লেংথ। যেভাবে চান, সেভাবে কাটা হবে।</p></div></div>
+      <div class="step part"><img src="assets/step-3-puthi.jpg" alt="নেভি কাপড়ে হাতে পুঁথি আর স্টোনের কাজ, সুচ আর সোনালি সুতা" loading="lazy">
+        <div class="tx"><span class="n" data-en="03">০৩</span><h3 data-en="Place lace and beadwork">লেইস আর পুঁথি বসান</h3><p data-en="You decide where the work goes and how much, with the price shown as you go.">কোথায় কতটা কাজ চান আপনি ঠিক করবেন, দাম সাথে সাথে দেখবেন।</p></div></div>
+      <div class="step part"><img src="assets/step-4-fit.jpg" alt="দর্জির ফর্মের কাঁধে মাপার ফিতা আর পিন করা কাপড়" loading="lazy">
+        <div class="tx"><span class="n" data-en="04">০৪</span><h3 data-en="Stitched to your measure">আপনার মাপে সেলাই</h3><p data-en="A reference garment or the measurement form, whichever suits you.">রেফারেন্স জামা বা measurement ফর্ম, দুটোর যেকোনো একটায়।</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 catalog -->
+<section id="catalog">
+  <div class="shell rv">
+    <p class="kicker part" data-en="Print catalog">প্রিন্ট ক্যাটালগ</p>
+    <h2 class="sec-title part" data-en="One flower, four moods">একই ফুল, চারটা মেজাজ</h2>
+    <p class="lede part" data-en="Every print comes in several colorways. Two kinds of print: allover repeat, which fits any garment, and engineered panel, drawn for one fixed layout.">প্রতিটা প্রিন্ট আসে একাধিক কালারওয়েতে। দুই ধরনের প্রিন্ট: allover repeat, যেটা যেকোনো গার্মেন্টে বসে, আর engineered panel, যেটা একটা নির্দিষ্ট লে-আউটের জন্য আঁকা।</p>
+    <div class="cat">
+      <figure class="wide part"><img src="assets/step-1-print.jpg" alt="পাঁচ কালারওয়ের কটন রোল" loading="lazy">
+        <figcaption><span class="tag">Allover repeat</span><br><span data-en="One print, five colorways, any garment">এক প্রিন্ট, পাঁচ কালারওয়ে, যেকোনো গার্মেন্টে</span></figcaption></figure>
+      <figure class="part"><img src="assets/panel-magenta.jpg" alt="ম্যাজেন্টা রঙে আঁকা প্যানেল প্রিন্ট" loading="lazy">
+        <figcaption><span class="tag">Engineered panel</span><br><span data-en="A fixed layout, for a dupatta or anchal">নির্দিষ্ট লে-আউট, দোপাট্টা বা আঁচলের জন্য</span></figcaption></figure>
+      <figure class="part"><img src="assets/panel-grey.jpg" alt="ধূসর রঙে আঁকা প্যানেল প্রিন্ট" loading="lazy">
+        <figcaption><span class="tag">Engineered panel</span><br><span data-en="The same composition, another colorway">একই কম্পোজিশন, অন্য কালারওয়ে</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 03 the measure (interactive) -->
+<section id="measure-sec" class="paper">
+  <div class="shell rv">
+    <p class="kicker part" data-en="A little experiment">একটা ছোট পরীক্ষা</p>
+    <h2 class="sec-title part" data-en="Try taking the measurements yourself">মাপ নেওয়াটা নিজে করে দেখুন</h2>
+    <p class="lede part" data-en="Press and hold the button. Let go once the tape finishes measuring.">বাটনটা চেপে ধরে রাখুন। ফিতাটা মাপ নেওয়া শেষ করলে ছেড়ে দিন।</p>
+    <div class="measure part" id="measure">
+      <svg class="silhouette" viewBox="0 0 1536 2752" aria-hidden="true">
+        <image href="assets/figure-mannequin.jpg" x="0" y="0" width="1536" height="2752"/>
+        <!-- measurement lines over the fitted dress, in stitcher order -->
+        <path class="mline" d="M539 633 Q768 596 996 633" style="--len:470"/>
+        <path class="mline" d="M985 660 Q1014 745 975 830" style="--len:185"/>
+        <path class="mline" d="M617 860 Q768 902 919 860" style="--len:320"/>
+        <path class="mline" d="M656 1087 Q770 1122 885 1087" style="--len:245"/>
+        <path class="mline" d="M585 1280 Q768 1328 949 1280" style="--len:385"/>
+        <path class="mline" d="M535 665 C498 860 492 1100 506 1295" style="--len:660"/>
+        <path class="mline" d="M478 1312 Q512 1334 548 1312" style="--len:80"/>
+        <path class="mline" d="M1060 633 L1060 2150" style="--len:1520"/>
+        <path class="mline" d="M295 1087 L295 2150" style="--len:1070"/>
+        <path class="mline" d="M1450 420 L1450 2200" style="--len:1780"/>
+      </svg>
+      <div>
+        <p class="unit-note" data-en="Your order needs these 10 measurements, all in <b>inches</b>. Press and hold the button and the tape fills them in.">অর্ডারে এই ১০টা মাপ লাগবে, সবগুলো <b>ইঞ্চিতে</b>। বাটনটা চেপে ধরলে ফিতা মাপ নিয়ে ঘরগুলো ভরে দেবে।</p>
+        <div class="mrows">
+          <div class="mrow"><span class="mnum" data-en="01">০১</span><span class="mname" data-en="Shoulder">কাঁধ</span><span class="mbox" data-v='১৪"'></span></div>
+          <div class="mrow"><span class="mnum" data-en="02">০২</span><span class="mname" data-en="Armhole">আর্মহোল</span><span class="mbox" data-v='১৬"'></span></div>
+          <div class="mrow"><span class="mnum" data-en="03">০৩</span><span class="mname" data-en="Bust">বুক</span><span class="mbox" data-v='৩৬"'></span></div>
+          <div class="mrow"><span class="mnum" data-en="04">০৪</span><span class="mname" data-en="Waist">কোমর</span><span class="mbox" data-v='৩০"'></span></div>
+          <div class="mrow"><span class="mnum" data-en="05">০৫</span><span class="mname" data-en="Hip">হিপ</span><span class="mbox" data-v='৪০"'></span></div>
+          <div class="mrow"><span class="mnum" data-en="06">০৬</span><span class="mname" data-en="Sleeve length">হাতার লম্বা</span><span class="mbox" data-v='২২"'></span></div>
+          <div class="mrow"><span class="mnum" data-en="07">০৭</span><span class="mname" data-en="Cuff">মুহুরি (কাফ)</span><span class="mbox" data-v='৯"'></span></div>
+          <div class="mrow"><span class="mnum" data-en="08">০৮</span><span class="mname" data-en="Kameez length">কামিজ লেংথ</span><span class="mbox" data-v='৪২"'></span></div>
+          <div class="mrow"><span class="mnum" data-en="09">০৯</span><span class="mname" data-en="Salwar length">সালোয়ার লেংথ</span><span class="mbox" data-v='৩৯"'></span></div>
+          <div class="mrow"><span class="mnum" data-en="10">১০</span><span class="mname" data-en="Height">উচ্চতা</span><span class="mbox" data-v='৬৩"'></span></div>
+        </div>
+        <button class="hold-btn" id="hold" type="button" data-en="Press and hold, the tape is measuring">চেপে ধরে রাখুন, ফিতা মাপ নিচ্ছে</button>
+        <p class="done-line" id="doneLine" data-en="That's all. The rest is our job.">এইটুকুই। বাকিটা আমাদের কাজ।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 sizing -->
+<section id="sizing">
+  <div class="shell rv">
+    <p class="kicker part" data-en="Sizing">মাপ</p>
+    <h2 class="sec-title part" data-en="Why there is no size chart">সাইজ চার্ট নেই কেন</h2>
+    <p class="lede part" data-en="S/M/L/XL is guesswork, and guesswork is where fitting complaints come from. So we keep two paths, and both end at your own body's measurements.">S/M/L/XL মানেই আন্দাজ, আর আন্দাজ মানেই ফিটিং নিয়ে অভিযোগ। তাই আমরা দুটো পথ রেখেছি, দুটোই আপনার নিজের শরীরের মাপে পৌঁছায়।</p>
+    <div class="paths">
+      <div class="path part">
+        <h3><span class="mono" data-en="Path 1">পথ ১</span><span data-en="Send a reference garment">রেফারেন্স জামা পাঠান</span></h3>
+        <p data-en="Courier us the best fitting dress you already own. We take its measurements exactly.">আপনার কাছে থাকা সবচেয়ে ভালো ফিট হওয়া জামাটা কুরিয়ার করে পাঠান। আমরা সেটা থেকে হুবহু মাপ নিই।</p>
+        <p class="ret" data-en="It comes back to you in the same box as your order.">জামাটা আপনার অর্ডারের সাথে একই বক্সে ফেরত যায়।</p>
+      </div>
+      <div class="path part">
+        <h3><span class="mono" data-en="Path 2">পথ ২</span><span data-en="Fill in the measurement form">Measurement ফর্ম পূরণ করুন</span></h3>
+        <p data-en="Bust, waist, hip, shoulder, sleeve, length. A picture guide walks you through every one. No field left to guessing.">বুক, কোমর, হিপ, কাঁধ, হাতা, লেংথ। ছবিসহ গাইড দেখে প্রতিটা মাপ দিন। কোনো ফিল্ড আন্দাজে না।</p>
+        <p class="ret" data-en="Your measurements stay saved on your profile for the next order.">মাপ প্রোফাইলে সেভ থাকে, পরের অর্ডারে আর দিতে হয় না।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 craft + price -->
+<section id="craft">
+  <div class="shell rv">
+    <p class="kicker part" data-en="Handwork">হাতের কাজ</p>
+    <h2 class="sec-title part" data-en="Priced for the work it takes">যে কাজের জন্য যেটুকু দাম</h2>
+    <div class="craft">
+      <img class="part" src="assets/craft-drape.jpg" alt="ফর্মের গায়ে ড্রেপ করা নেভি ফুলের প্রিন্টের কাপড়" loading="lazy">
+      <div class="tiers part">
+        <div class="tier"><h3 data-en="Everyday party">এভরিডে পার্টি</h3><span class="price" data-en="৳3,500–5,500">৳৩,৫০০–৫,৫০০</span>
+          <p data-en="Light beadwork and simple lace. The dress for everyday invitations.">হালকা পুঁথি আর সাধারণ লেইস। রোজকার দাওয়াতের জামা।</p></div>
+        <div class="tier"><h3 data-en="Occasion">অকেশন</h3><span class="price" data-en="৳6,000–9,500">৳৬,০০০–৯,৫০০</span>
+          <p data-en="Medium stone work, finer lace, a print that stands out on its own.">মাঝারি স্টোনের কাজ, ভালো মানের লেইস, আলাদা করে চোখে পড়ার মতো প্রিন্ট।</p></div>
+        <div class="tier"><h3 data-en="Statement">স্টেটমেন্ট</h3><span class="price" data-en="৳10,000–14,500">৳১০,০০০–১৪,৫০০</span>
+          <p data-en="Heavy hand stone work, an exclusive print, a fit made with the most care we have.">ভারী হাতের স্টোনের কাজ, এক্সক্লুসিভ প্রিন্ট, সর্বোচ্চ যত্নের ফিট।</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 timeline -->
+<section id="time" class="paper">
+  <div class="shell rv">
+    <p class="kicker part" data-en="Timeline">সময়</p>
+    <h2 class="sec-title part" data-en="20 to 25 days. Here is why">২০ থেকে ২৫ দিন। কেন, সেটাও বলি</h2>
+    <p class="lede part" data-en="This is not readymade, it is cut to your measure. You can watch every stage on the order tracker.">রেডিমেড না, আপনার মাপে কাটা হয়। প্রতিটা ধাপ অর্ডার ট্র্যাকারে দেখতে পাবেন।</p>
+    <div class="tl part" id="tl">
+      <div class="rail"><i></i></div>
+      <div class="tl-item"><h3 data-en="Order confirmed">অর্ডার কনফার্ম</h3><p data-en="A 30% advance locks your order in.">৩০% অ্যাডভান্সে অর্ডার লক হয়।</p></div>
+      <div class="tl-item"><h3 data-en="Measurements received">মাপ পৌঁছালো</h3><p data-en="Your reference garment or your form, whichever you chose.">রেফারেন্স জামা বা ফর্ম, যেটা বেছেছেন।</p></div>
+      <div class="tl-item"><h3 data-en="Cutting">কাটিং</h3><p data-en="The cutting master drafts your pattern and cuts the cloth.">কাটিং মাস্টার আপনার মাপে প্যাটার্ন বানিয়ে কাপড় কাটেন।</p></div>
+      <div class="tl-item"><h3 data-en="Stitching">সেলাই</h3><p data-en="The garment takes its shape.">জামার গড়ন দাঁড়ায়।</p></div>
+      <div class="tl-item"><h3 data-en="Beadwork and lace">পুঁথি আর লেইস</h3><p data-en="The handwork. Most of the time goes here.">হাতের কাজ। সবচেয়ে সময় এখানেই যায়।</p></div>
+      <div class="tl-item"><h3 data-en="QC and shipping">QC আর শিপিং</h3><p data-en="Stitching, stonework and color all checked, then into the box.">সেলাই, স্টোনের বসানো, রঙ মিলিয়ে তারপর বক্সে।</p></div>
+    </div>
+    <p class="tl-note part" data-en="The rest is paid on delivery, cash on delivery.">ডেলিভারিতে বাকি টাকা, cash on delivery।</p>
+  </div>
+</section>
+
+<!-- 07 faq -->
+<section id="faq">
+  <div class="shell rv">
+    <p class="kicker part" data-en="The questions that always come">প্রশ্ন যা আসেই</p>
+    <h2 class="sec-title part" data-en="Straight answers">সোজা উত্তর</h2>
+    <div class="faq part">
+      <details><summary data-en="Why pay an advance?">অ্যাডভান্স কেন দেব?</summary><div class="a" data-en="Your dress is made to your measurements alone, it cannot be sold to anyone else. A 30% advance keeps both sides serious. The other 70% is paid on delivery, with the dress in your hands.">জামাটা শুধু আপনার মাপে বানানো, অন্য কাউকে বেচা যায় না। ৩০% অ্যাডভান্স দুই পক্ষকেই সিরিয়াস রাখে। বাকি ৭০% ডেলিভারিতে, হাতে জামা নিয়ে।</div></details>
+      <details><summary data-en="Will the real fabric match the photo?">ছবির সাথে আসল কাপড় মিলবে তো?</summary><div class="a" data-en="Before you order, every print is shown next to a photo of the actual fabric. A camera photo, not a render. What you see is what arrives.">অর্ডারের আগে প্রতিটা প্রিন্টের আসল কাপড়ের ছবি পাশাপাশি দেখানো হয়। রেন্ডার না, ক্যামেরায় তোলা। যেটা দেখবেন সেটাই পাবেন।</div></details>
+      <details><summary data-en="Do I get my reference garment back?">আমার পাঠানো জামাটা ফেরত পাব?</summary><div class="a" data-en="Yes. Every reference garment is tagged with your order ID and comes back in the same box as your new dress.">হ্যাঁ, প্রতিটা রেফারেন্স জামা অর্ডার আইডি দিয়ে ট্যাগ হয় আর আপনার নতুন জামার সাথে একই বক্সে ফেরত যায়।</div></details>
+      <details><summary data-en="What if my measurements are wrong?">মাপ ভুল দিলে?</summary><div class="a" data-en="The form comes with a picture guide for taking every measurement. If you are still unsure, take the reference garment path, there is no room for error in it.">ফর্মের পাশে ছবিসহ গাইড আছে কীভাবে মাপ নেবেন। তবু সন্দেহ থাকলে রেফারেন্স জামার পথটা নিন, ওটায় ভুলের জায়গাই নেই।</div></details>
+      <details><summary data-en="Where do you deliver?">ডেলিভারি কোথায় কোথায়?</summary><div class="a" data-en="Inside and outside Dhaka, by courier. The delivery charge is shown at order time, no surprises later.">ঢাকার ভিতরে ও বাইরে কুরিয়ারে। ডেলিভারি চার্জ অর্ডারের সময়েই দেখানো হয়, পরে কোনো চমক নেই।</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 08 cta -->
+<section class="cta-sec" id="start">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="shell rv">
+    <h2 class="part" data-en="Your dress has not been made yet.<br>That is the whole point.">আপনার জামাটা এখনো বানানো হয়নি।<br>সেটাই তো কথা।</h2>
+    <p class="lede part" style="margin-left:auto;margin-right:auto" data-en="Pick the print, pick the work, give your measurements. The rest is ours.">প্রিন্ট বাছুন, কাজ বাছুন, মাপ দিন। বাকিটা আমাদের।</p>
+    <div class="cta-row part">
+      <a class="btn" href="contact.html#order" data-en="Start designing yours">ডিজাইন করা শুরু করুন</a>
+      <a class="btn ghost" href="mailto:info@azmirs.com?subject=Azmirs%20question" data-en="I have a question first">আগে একটা প্রশ্ন আছে</a>
+    </div>
+    <p class="part" style="font-size:13.5px;color:var(--text-secondary);margin-top:22px" data-en="The button takes you to the order form. The online configurator is on its way, and until then this is how orders work.">বাটনটা অর্ডার ফর্মে নিয়ে যাবে। অনলাইন কনফিগারেটর আসছে, ততদিন অর্ডার এভাবেই।</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="shell">
+    <img src="assets/logo.png" alt="Azmirs">
+    <p data-en="Azmirs Custom Dress Studio, Dhaka. The imagery on this site is AI made and will be replaced step by step as real sample photography arrives. The two print samples are from our own design catalog.">Azmirs Custom Dress Studio, ঢাকা। সাইটের ছবিগুলো AI দিয়ে বানানো ভিজ্যুয়াল, আসল স্যাম্পলের ফটোগ্রাফি এলে ধাপে ধাপে বদলে যাবে। প্রিন্টের নমুনা দুটো আমাদের নিজস্ব ডিজাইন ক্যাটালগ থেকে।</p>
+  </div>
+</footer>
+
+<script>
+/* TEMP DIAGNOSTIC: remove before deploy */
+window.addEventListener('error',function(e){
+  try{fetch('/dbg-error?m='+encodeURIComponent((e.message||'?')+' @'+(e.filename||'')+':'+e.lineno))}catch(_){}
+});
+</script>
+<script>
+(function(){
+"use strict";
+var stage=document.getElementById('stage');
+var video=document.getElementById('hv');
+var poster=document.getElementById('poster');
+var ring=document.querySelector('.ring circle');
+var hero=document.querySelector('.hero');
+var bands=[].slice.call(document.querySelectorAll('.band')).map(function(el){
+  return {el:el,a:+el.dataset.a,b:+el.dataset.b,op:-1,k:-1,
+    words:[].slice.call(el.querySelectorAll('.w'))};
+});
+bands.forEach(function(b){
+  b.words.forEach(function(w,i){
+    w.style.setProperty('--kc',0);
+    w.dataset.th=(i/Math.max(1,b.words.length))*0.5;
+  });
+});
+var b5=document.getElementById('b5');
+
+/* ---- seeded not needed: thresholds ordered ---- */
+var smooth=function(p,e0,e1){var t=Math.min(1,Math.max(0,(p-e0)/(e1-e0)));return t*t*(3-2*t)};
+var clamp=function(v,lo,hi){return Math.min(hi,Math.max(lo,v))};
+
+/* ---- seek gating ---- */
+var seekBusy=false,pendingTime=null;
+function requestSeek(t){
+  if(!video.duration)return;
+  if(seekBusy){pendingTime=t;return}
+  seekBusy=true;video.currentTime=t;
+}
+video.addEventListener('seeked',function(){
+  seekBusy=false;
+  if(pendingTime!==null){var t=pendingTime;pendingTime=null;requestSeek(t)}
+});
+video.addEventListener('error',function(){seekBusy=false;pendingTime=null;failVideo()});
+
+/* ---- progress + lerp loop ---- */
+var target=0,shown=0,rafId=null,lastTick=0,heroOn=true,loadK=0,loadStart=0;
+function heroProgress(){
+  var r=hero.getBoundingClientRect();
+  var range=hero.offsetHeight-innerHeight;
+  return range>0?clamp(-r.top/range,0,1):0;
+}
+function tick(now){
+  var dt=Math.min(100,now-(lastTick||now));lastTick=now;
+  if(loadStart&&loadK<1){loadK=clamp((now-loadStart)/1400,0,1)}
+  var k=0.16;
+  shown+=(target-shown)*(1-Math.pow(1-k,dt/16.667));
+  var conv=Math.abs(target-shown)<0.0005&&loadK>=1;
+  if(conv){shown=target;rafId=null;lastTick=0}
+  else{rafId=requestAnimationFrame(tick)}
+  if(video.duration)requestSeek(shown*video.duration);
+  updateCaptions(shown);
+}
+function onScroll(){
+  target=heroProgress();
+  if(rafId===null&&heroOn)rafId=requestAnimationFrame(tick);
+  navSolid();
+}
+
+/* ---- captions ---- */
+function updateCaptions(p){
+  bands.forEach(function(b,idx){
+    var f=Math.min(0.02,(b.b-b.a)/3);
+    var op=(idx===0?1:smooth(p,b.a,b.a+f))*(idx===bands.length-1?1:(1-smooth(p,b.b-f,b.b)));
+    if(idx===0)op=op*(1-smooth(p,b.b-f,b.b));
+    if(idx===bands.length-1)op=smooth(p,b.a,b.a+f);
+    var kv=clamp((p-b.a)/Math.min(0.025,(b.b-b.a)*0.35),0,1);
+    if(idx===0)kv=Math.max(kv,loadK);
+    if(Math.abs(op-b.op)>0.008){b.op=op;b.el.style.opacity=op}
+    if(Math.abs(kv-b.k)>0.008){
+      b.k=kv;b.el.style.setProperty('--k',kv);
+      b.words.forEach(function(w){
+        var kc=clamp((kv-(+w.dataset.th))*2.6,0,1);
+        w.style.setProperty('--kc',kc);
+        w.style.setProperty('--ks',clamp((kv-(+w.dataset.th)-0.1)*3.2,0,1));
+      });
+      if(b.el===b5){
+        b5.style.setProperty('--ks2',clamp((kv-0.55)*4,0,1));
+        b5.style.setProperty('--kb',clamp((kv-0.72)*5,0,1));
+      }
+    }
+  });
+}
+
+/* ---- blob loader (small file, plain fetch + ring) ---- */
+var videoStarted=false,heroInited=false;
+function initHeroOnce(){
+  if(heroInited)return;heroInited=true;
+  poster.style.backgroundImage="url('assets/hero-poster.jpg')";
+  loadStart=performance.now();
+  if(rafId===null)rafId=requestAnimationFrame(tick);
+  loadHeroBlob().catch(failVideo);
+}
+function loadHeroBlob(){
+  if(videoStarted)return Promise.resolve();
+  videoStarted=true;
+  var ctrl=new AbortController();
+  var watchdog=setTimeout(function(){ctrl.abort()},20000);
+  return fetch('assets/hero-scrub.mp4',{signal:ctrl.signal}).then(function(res){
+    var total=Number(res.headers.get('Content-Length'))||4980610;
+    var reader=res.body.getReader();var chunks=[];var got=0,lastRing=0;
+    function pump(){
+      return reader.read().then(function(r){
+        if(r.done)return;
+        clearTimeout(watchdog);
+        watchdog=setTimeout(function(){ctrl.abort()},20000);
+        chunks.push(r.value);got+=r.value.length;
+        var frac=Math.min(1,got/total);var now=performance.now();
+        if(now-lastRing>100||frac===1){lastRing=now;
+          if(ring)ring.style.strokeDashoffset=Math.round(126*(1-frac))}
+        return pump();
+      });
+    }
+    return pump().then(function(){
+      clearTimeout(watchdog);
+      if(ring)ring.style.strokeDashoffset=0;
+      video.src=URL.createObjectURL(new Blob(chunks));
+      video.load();
+      video.addEventListener('canplay',function(){
+        requestSeek(heroProgress()*video.duration);
+        /* nudge the decoder: some GPU/driver combos never paint a frame
+           until the element has actually played a tick */
+        var p=video.play();
+        if(p&&p.then)p.then(function(){video.pause()}).catch(function(){});
+        /* reveal the video only after a frame is REALLY presented;
+           otherwise the poster stays and the site works as a still hero */
+        var revealed=false;
+        function reveal(){
+          if(revealed)return;revealed=true;
+          stage.classList.add('video-ready');
+          var rg=document.querySelector('.ring');if(rg)rg.style.opacity=0;
+        }
+        if('requestVideoFrameCallback' in video){
+          video.requestVideoFrameCallback(function(){reveal()});
+        }else{
+          video.addEventListener('timeupdate',function tu(){
+            if(video.readyState>=2){video.removeEventListener('timeupdate',tu);reveal()}
+          });
+        }
+        setTimeout(function(){
+          if(!revealed){
+            /* no frame after 5s: decoder is not painting; ship the still hero */
+            failVideo();
+          }
+        },5000);
+      },{once:true});
+    });
+  });
+}
+function failVideo(){
+  stage.classList.add('video-failed');
+  video.style.display='none';
+  var rg=document.querySelector('.ring');if(rg)rg.remove();
+  poster.style.backgroundImage="url('assets/hero-poster.jpg')";
+}
+
+/* ---- static-hero gates, live ---- */
+var GATES=['(max-width: 720px)',
+  '(orientation: portrait) and (max-width: 1024px)',
+  '(orientation: portrait) and (pointer: coarse)',
+  '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)',
+  '(prefers-reduced-motion: reduce)'];
+var scrubOn=false;
+function enableScrub(){
+  if(scrubOn)return;scrubOn=true;
+  initHeroOnce();
+  addEventListener('scroll',onScroll,{passive:true});
+  bands.forEach(function(b){b.op=-1;b.k=-1});
+  unpinFinalStates();
+  target=heroProgress();updateCaptions(target);onScroll();
+}
+function disableScrub(){
+  if(!scrubOn)return;scrubOn=false;
+  removeEventListener('scroll',onScroll);
+  if(rafId!==null){cancelAnimationFrame(rafId);rafId=null}
+}
+function applyHeroMode(){
+  var st=GATES.some(function(q){return matchMedia(q).matches});
+  if(st)disableScrub();else enableScrub();
+}
+var MQLS=GATES.map(function(q){return matchMedia(q)});
+MQLS.forEach(function(m){m.addEventListener('change',applyHeroMode)});
+
+/* ---- reduced motion live, both directions ---- */
+var pinned=[];
+function pinToFinalStates(){
+  disableScrub();
+  bands.forEach(function(b){b.el.style.opacity=0});
+  document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in','done')});
+  var m=document.getElementById('measure');if(m)m.classList.add('complete');
+  document.querySelectorAll('.silhouette .mline').forEach(function(l){l.style.setProperty('--mp',1)});
+  document.querySelectorAll('.mrow').forEach(function(t){t.classList.add('on')});
+  var rail=document.querySelector('.tl .rail i');if(rail)rail.style.height='100%';
+  document.querySelectorAll('.tl-item').forEach(function(i){i.classList.add('on')});
+  document.querySelectorAll('.tape .tick').forEach(function(t){t.classList.add('lit')});
+  pinned=['done'];
+}
+function unpinFinalStates(){
+  if(!pinned.length)return;pinned=[];
+  var m=document.getElementById('measure');
+  if(m&&!m.dataset.userDone){m.classList.remove('complete');
+    document.querySelectorAll('.silhouette .mline').forEach(function(l){l.style.setProperty('--mp',0)});
+    document.querySelectorAll('.mrow').forEach(function(t){t.classList.remove('on')});
+  }
+}
+matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',function(e){
+  if(e.matches)pinToFinalStates();else applyHeroMode();
+});
+
+/* ---- nav + tape ---- */
+var nav=document.getElementById('nav');var navIsSolid=false;
+function navSolid(){
+  var below=scrollY>innerHeight*0.5;
+  if(below!==navIsSolid){navIsSolid=below;nav.classList.toggle('solid',below)}
+  var pastHero=scrollY>(hero.offsetHeight-innerHeight*0.9);
+  document.body.classList.toggle('below-hero',pastHero);
+}
+addEventListener('scroll',navSolid,{passive:true});
+
+/* ---- section entrances + tape ticks + timeline ---- */
+var secs=[].slice.call(document.querySelectorAll('.rv'));
+var ticks=[].slice.call(document.querySelectorAll('.tape .tick'));
+function revealSec(s){
+  if(s.classList.contains('in'))return;
+  s.classList.add('in');
+  setTimeout(function(){s.classList.add('done')},1600);
+  var idx=secs.indexOf(s);
+  if(idx>-1&&ticks[idx])ticks[idx].classList.add('lit');
+}
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting)revealSec(e.target)});
+},{threshold:0.18});
+secs.forEach(function(s){io.observe(s)});
+/* failsafe: scroll-position check catches anything the observer misses */
+var allIn=false;
+function revealCheck(){
+  if(allIn)return;
+  var pending=0;
+  secs.forEach(function(s){
+    if(s.classList.contains('in'))return;
+    var r=s.getBoundingClientRect();
+    if(r.top<innerHeight*0.82&&r.bottom>0)revealSec(s);
+    else pending++;
+  });
+  if(!pending)allIn=true;
+}
+addEventListener('scroll',revealCheck,{passive:true});
+setTimeout(revealCheck,1500);
+
+/* hero visibility for the rAF loop */
+new IntersectionObserver(function(es){
+  es.forEach(function(e){heroOn=e.isIntersecting});
+},{threshold:0}).observe(hero);
+
+/* timeline draw */
+var tl=document.getElementById('tl');
+var tlItems=[].slice.call(document.querySelectorAll('.tl-item'));
+var tlRail=document.querySelector('.tl .rail i');
+function tlUpdate(){
+  if(!tl)return;
+  var r=tl.getBoundingClientRect();
+  var p=clamp((innerHeight*0.85-r.top)/r.height,0,1);
+  if(tlRail)tlRail.style.height=(p*100)+'%';
+  tlItems.forEach(function(it,i){
+    it.classList.toggle('on',p>(i+0.5)/tlItems.length);
+  });
+}
+addEventListener('scroll',tlUpdate,{passive:true});
+
+/* ---- the hold interaction ---- */
+var holdBtn=document.getElementById('hold');
+var measure=document.getElementById('measure');
+var mlines=[].slice.call(document.querySelectorAll('.silhouette .mline'));
+var mrows=[].slice.call(document.querySelectorAll('.mrow'));
+var MN=mlines.length;
+var holdP=0,holding=false,holdRaf=null,lastHold=0;
+function holdTick(now){
+  var dt=Math.min(100,now-(lastHold||now));lastHold=now;
+  holdP=clamp(holdP+(holding?dt/3600:-dt/1200),0,1);
+  mlines.forEach(function(l,i){
+    var lp=clamp(holdP*MN-i,0,1);
+    l.style.setProperty('--mp',lp);
+    if(mrows[i])mrows[i].classList.toggle('on',lp>=1);
+  });
+  if(holdP>=1&&!measure.classList.contains('complete')){
+    measure.classList.add('complete');measure.dataset.userDone='1';
+  }
+  if((holding&&holdP<1)||(!holding&&holdP>0&&!measure.classList.contains('complete'))){
+    holdRaf=requestAnimationFrame(holdTick);
+  }else{holdRaf=null;lastHold=0}
+}
+function startHold(e){e.preventDefault();holding=true;
+  if(holdRaf===null)holdRaf=requestAnimationFrame(holdTick)}
+function endHold(){holding=false;
+  if(holdRaf===null&&holdP>0)holdRaf=requestAnimationFrame(holdTick)}
+if(holdBtn){
+  holdBtn.addEventListener('pointerdown',startHold);
+  addEventListener('pointerup',endHold);
+  holdBtn.addEventListener('pointercancel',endHold);
+  holdBtn.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){startHold(e)}});
+  holdBtn.addEventListener('keyup',function(e){if(e.key===' '||e.key==='Enter'){endHold()}});
+}
+
+/* ---- mobile menu (populated from nav-links BEFORE the i18n scan) ---- */
+var menuBtn=document.getElementById('menuBtn');
+var mmenu=document.getElementById('mmenu');
+if(menuBtn&&mmenu){
+  document.querySelectorAll('.nav-links a').forEach(function(l){
+    mmenu.appendChild(l.cloneNode(true));
+  });
+  var navCta=document.querySelector('nav .nav-cta');
+  if(navCta)mmenu.appendChild(navCta.cloneNode(true));
+  var closeMenu=function(){mmenu.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')};
+  menuBtn.addEventListener('click',function(e){
+    e.stopPropagation();
+    var open=mmenu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded',open?'true':'false');
+  });
+  document.addEventListener('click',function(e){
+    if(!mmenu.contains(e.target)&&!menuBtn.contains(e.target))closeMenu();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu()});
+}
+
+/* ---- language toggle ---- */
+var langBtn=document.getElementById('langBtn');
+var curLang='bn';
+var i18nEls=[].slice.call(document.querySelectorAll('[data-en]')).filter(function(el){
+  return !el.classList.contains('h')});
+i18nEls.forEach(function(el){el.dataset.bnHtml=el.innerHTML});
+var bandHEls=[].slice.call(document.querySelectorAll('.band .h'));
+bandHEls.forEach(function(el){
+  el.dataset.bnWords=[].slice.call(el.querySelectorAll('.w')).map(function(w){return w.textContent}).join(' ')});
+function rebuildBandWords(lang){
+  bands.forEach(function(b){
+    var h=b.el.querySelector('.h');if(!h||!h.dataset.en)return;
+    var words=(lang==='en'?h.dataset.en:h.dataset.bnWords).split(' ');
+    h.innerHTML=words.map(function(w){return '<span class="w">'+w+'</span>'}).join(' ');
+    b.words=[].slice.call(h.querySelectorAll('.w'));
+    b.words.forEach(function(w,i){
+      w.dataset.th=(i/Math.max(1,b.words.length))*0.5;
+      w.style.setProperty('--kc',0);
+    });
+    b.k=-1;b.op=-1;
+  });
+  updateCaptions(shown);
+}
+function setLang(lang){
+  curLang=lang;
+  document.documentElement.lang=lang==='en'?'en':'bn';
+  document.body.classList.toggle('en',lang==='en');
+  i18nEls.forEach(function(el){el.innerHTML=lang==='en'?el.dataset.en:el.dataset.bnHtml});
+  rebuildBandWords(lang);
+  if(langBtn)langBtn.textContent=lang==='en'?'বাং':'EN';
+  try{localStorage.setItem('azm-lang',lang)}catch(e){}
+}
+if(langBtn)langBtn.addEventListener('click',function(){setLang(curLang==='en'?'bn':'en')});
+try{if(localStorage.getItem('azm-lang')==='en')setLang('en')}catch(e){}
+
+/* ---- pause on hidden tab ---- */
+document.addEventListener('visibilitychange',function(){
+  document.body.classList.toggle('paused',document.hidden);
+});
+
+/* TEMP DIAGNOSTIC: remove before deploy */
+setTimeout(function(){
+  try{fetch('/dbg-state?s='+encodeURIComponent(JSON.stringify({
+    ih:innerHeight,iw:innerWidth,dpr:devicePixelRatio,
+    scrub:scrubOn,vready:video.readyState,vdur:video.duration||0,
+    stage:document.getElementById('stage').className,
+    poster:!!poster.style.backgroundImage,
+    gates:GATES.map(function(q){return matchMedia(q).matches?1:0}).join('')
+  })))}catch(_){}
+},5000);
+var dbgLast=0;
+addEventListener('scroll',function(){
+  var n=Date.now();if(n-dbgLast<2500)return;dbgLast=n;
+  try{fetch('/dbg-scroll?y='+Math.round(scrollY)+'&t='+(video.currentTime||0).toFixed(2)+'&sh='+(shown||0).toFixed(3))}catch(_){}
+},{passive:true});
+
+/* ---- boot ---- */
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){pinToFinalStates()}
+else{applyHeroMode()}
+navSolid();tlUpdate();
+requestAnimationFrame(function(){document.body.classList.add('ready')});
+})();
+</script>
+</body>
+</html>

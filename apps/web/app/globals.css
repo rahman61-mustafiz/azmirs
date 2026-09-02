@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/* Azmirs brand tokens — Design System: Navy + Rose Gold + sparing Warm Gold on Ivory */
+@theme {
+  --color-navy: #1b2a4a;
+  --color-navy-deep: #16233c;
+  --color-ink: #0c1421;
+  --color-ivory: #fbf8f4;
+  --color-card: #ffffff;
+  --color-rosegold: #c08e6f;
+  --color-rosegold-hover: #d6a886;
+  --color-rosegold-deep: #a5673c;
+  --color-foil: #c9a227; /* sparing: rare highlights only */
+  --color-sand: #9b8e80;
+  --color-inkbody: #4a4438;
+  --color-inkmuted: #6e6354;
+
+  --font-bn: var(--font-anek-bangla), var(--font-noto-bengali), sans-serif;
+  --font-bnd: var(--font-tiro-bangla), serif;
+  --font-en: var(--font-instrument), system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-inkbody);
+  font-family: var(--font-bn);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-bnd);
+  color: var(--color-navy);
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-rosegold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
