@@ -5,6 +5,7 @@ import {
   type Compatibility,
   type FabricDesign,
   type GarmentType,
+  type LaceOption,
 } from "@/lib/supabase";
 import DesignFlow from "@/components/DesignFlow";
 
@@ -14,9 +15,10 @@ async function getData(id: string): Promise<{
   design: FabricDesign | null;
   colorways: Colorway[];
   garmentTypes: GarmentType[];
+  laces: LaceOption[];
 }> {
-  if (!supabase) return { design: null, colorways: [], garmentTypes: [] };
-  const [designRes, colorwaysRes, typesRes, compatRes] = await Promise.all([
+  if (!supabase) return { design: null, colorways: [], garmentTypes: [], laces: [] };
+  const [designRes, colorwaysRes, typesRes, compatRes, lacesRes] = await Promise.all([
     supabase
       .from("fabric_designs")
       .select("id,name,print_type,base_fabric_type")
@@ -37,6 +39,11 @@ async function getData(id: string): Promise<{
       .from("fabric_design_garment_compatibility")
       .select("fabric_design_id,garment_type_id")
       .eq("fabric_design_id", id),
+    supabase
+      .from("lace_options")
+      .select("id,name,price_per_gojo,image_url")
+      .eq("is_active", true)
+      .order("name", { ascending: true }),
   ]);
 
   const compat = (compatRes.data as Compatibility[]) ?? [];
@@ -52,12 +59,13 @@ async function getData(id: string): Promise<{
     design: (designRes.data as FabricDesign) ?? null,
     colorways: (colorwaysRes.data as Colorway[]) ?? [],
     garmentTypes,
+    laces: (lacesRes.data as LaceOption[]) ?? [],
   };
 }
 
 export default async function DesignDetailPage({ params }: PageProps<"/design/[id]">) {
   const { id } = await params;
-  const { design, colorways, garmentTypes } = await getData(id);
+  const { design, colorways, garmentTypes, laces } = await getData(id);
 
   return (
     <main className="mx-auto w-full max-w-5xl px-5 py-12 sm:px-6 sm:py-14">
@@ -80,8 +88,10 @@ export default async function DesignDetailPage({ params }: PageProps<"/design/[i
 
           <DesignFlow
             designId={design.id}
+            designName={design.name}
             colorways={colorways}
             garmentTypes={garmentTypes}
+            laces={laces}
           />
         </>
       )}

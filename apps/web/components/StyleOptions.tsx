@@ -14,9 +14,17 @@ type Props = {
   garmentTypes: GarmentType[];
   /* dev preview only: bypasses the Supabase fetch */
   mockPhotos?: DesignStylePhoto[];
+  onStyleSelect?: (photo: DesignStylePhoto | null) => void;
+  onGarmentChange?: (garment: GarmentType) => void;
 };
 
-export default function StyleOptions({ designId, garmentTypes, mockPhotos }: Props) {
+export default function StyleOptions({
+  designId,
+  garmentTypes,
+  mockPhotos,
+  onStyleSelect,
+  onGarmentChange,
+}: Props) {
   const [garmentId, setGarmentId] = useState<string | null>(garmentTypes[0]?.id ?? null);
   const [photos, setPhotos] = useState<DesignStylePhoto[]>(mockPhotos ?? []);
   const [loading, setLoading] = useState(false);
@@ -68,7 +76,11 @@ export default function StyleOptions({ designId, garmentTypes, mockPhotos }: Pro
                 key={g.id}
                 role="tab"
                 aria-selected={active}
-                onClick={() => setGarmentId(g.id)}
+                onClick={() => {
+                  setGarmentId(g.id);
+                  onGarmentChange?.(g);
+                  onStyleSelect?.(null);
+                }}
                 className={`rounded-sm border px-4 py-2 text-sm transition-colors ${
                   active
                     ? "border-navy bg-navy text-ivory"
@@ -90,7 +102,10 @@ export default function StyleOptions({ designId, garmentTypes, mockPhotos }: Pro
               photo={photo}
               index={i}
               selected={photo.id === selectedId}
-              onSelect={() => setSelectedId(photo.id)}
+              onSelect={() => {
+                setSelectedId(photo.id);
+                onStyleSelect?.(photo);
+              }}
               onZoom={() => setZoomUrl(photo.photo_url)}
             />
           ) : (

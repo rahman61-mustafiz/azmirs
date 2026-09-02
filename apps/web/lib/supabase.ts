@@ -36,6 +36,26 @@ export type Compatibility = {
   garment_type_id: string;
 };
 
+export type LaceOption = {
+  id: string;
+  name: string;
+  price_per_gojo: number;
+  image_url: string | null;
+};
+
+export const MEASUREMENT_FIELDS = [
+  { key: "shoulder", bn: "কাঁধ", en: "Shoulder", min: 5, max: 90 },
+  { key: "armhole", bn: "আর্মহোল", en: "Armhole", min: 5, max: 90 },
+  { key: "bust", bn: "বুক", en: "Bust", min: 5, max: 90 },
+  { key: "waist", bn: "কোমর", en: "Waist", min: 5, max: 90 },
+  { key: "hip", bn: "হিপ", en: "Hip", min: 5, max: 90 },
+  { key: "sleeve_length", bn: "হাতার লম্বা", en: "Sleeve length", min: 5, max: 90 },
+  { key: "cuff", bn: "মুহুরি (কাফ)", en: "Cuff", min: 3, max: 40 },
+  { key: "kameez_length", bn: "কামিজ লেংথ", en: "Kameez length", min: 15, max: 90 },
+  { key: "salwar_length", bn: "সালোয়ার লেংথ", en: "Salwar length", min: 15, max: 90 },
+  { key: "height", bn: "উচ্চতা", en: "Height", min: 30, max: 90 },
+] as const;
+
 export type DesignStylePhoto = {
   id: string;
   fabric_design_id: string;
