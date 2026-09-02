@@ -30,6 +30,23 @@ type Props = {
 
 type SizingPath = "reference_garment" | "measurement_form";
 
+type OrderPrice = {
+  base_price: number;
+  fabric_price: number;
+  lace_price: number;
+  vat_amount: number;
+  transportation_price: number;
+  total_price: number;
+  advance_amount: number;
+  remaining_cod_amount: number;
+};
+
+type SubmitState =
+  | { kind: "idle" }
+  | { kind: "submitting" }
+  | { kind: "error"; message: string }
+  | { kind: "success"; orderNumber: string; price: OrderPrice };
+
 export default function DesignFlow({
   designId,
   designName,
@@ -44,6 +61,10 @@ export default function DesignFlow({
   const [laceId, setLaceId] = useState<string | "none">("none");
   const [sizing, setSizing] = useState<SizingPath>("reference_garment");
   const [measurements, setMeasurements] = useState<Record<string, string>>({});
+  const [custName, setCustName] = useState("");
+  const [custPhone, setCustPhone] = useState("");
+  const [submitState, setSubmitState] = useState<SubmitState>({ kind: "idle" });
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const colorway = colorways.find((c) => c.id === colorwayId) ?? null;
   const lace = laceId === "none" ? null : laces.find((l) => l.id === laceId) ?? null;
@@ -64,6 +85,50 @@ export default function DesignFlow({
     const v = raw.replace(/[^0-9.]/g, "");
     setMeasurements((m) => ({ ...m, [key]: v }));
   };
+
+  async function submitOrder() {
+    if (!apiUrl || !ready || !garment || !style) return;
+    setSubmitState({ kind: "submitting" });
+    try {
+      const res = await fetch(`${apiUrl}/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customer: { name: custName.trim(), phone: custPhone.trim() },
+          fabric_design_id: designId,
+          colorway_id: colorwayId,
+          garment_type_id: garment.id,
+          style_photo_id: style.id,
+          lace_option_id: laceId === "none" ? null : laceId,
+          sizing_method: sizing,
+          measurements:
+            sizing === "measurement_form"
+              ? Object.fromEntries(
+                  MEASUREMENT_FIELDS.map((f) => [f.key, Number(measurements[f.key])])
+                )
+              : undefined,
+        }),
+      });
+      const body = await res.json().catch(() => null);
+      if (!res.ok) {
+        const msg = Array.isArray(body?.message)
+          ? body.message.join(", ")
+          : (body?.message ?? "অর্ডার জমা দেওয়া যায়নি, একটু পরে চেষ্টা করুন");
+        setSubmitState({ kind: "error", message: String(msg) });
+        return;
+      }
+      setSubmitState({
+        kind: "success",
+        orderNumber: body.order_number,
+        price: body.price as OrderPrice,
+      });
+    } catch {
+      setSubmitState({
+        kind: "error",
+        message: "সার্ভারে পৌঁছানো যায়নি, ইন্টারনেট দেখে আবার চেষ্টা করুন",
+      });
+    }
+  }
 
   return (
     <div>
@@ -331,26 +396,97 @@ export default function DesignFlow({
           দাম দেখানো হবে অর্ডার জমার ধাপে: বেস সেলাই + কাপড় + লেইস + ভ্যাট + ডেলিভারি, সবটা
           আইটেম ধরে ধরে। ৩০% অ্যাডভান্সে অর্ডার লক হয়, বাকিটা ডেলিভারিতে।
         </p>
-        <button
-          type="button"
-          disabled={!ready}
-          className="mt-4 inline-flex rounded-sm bg-rosegold px-7 py-3 font-medium text-card transition-colors enabled:hover:bg-rosegold-hover disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          অর্ডারে এগোন
-        </button>
-        <p className="mt-2 text-xs text-inkmuted">
-          অর্ডার জমা নেওয়ার সিস্টেমটা এখন বানানো হচ্ছে। ততদিন অর্ডার হয়{" "}
-          <a
-            href="https://azmirs.com/contact.html"
-            className="text-rosegold-deep underline"
-            target="_blank"
-            rel="noreferrer"
+        {submitState.kind === "success" ? (
+          <div className="mt-4 rounded-sm border border-rosegold/50 bg-foil/5 p-4">
+            <p className="font-medium text-navy-deep">
+              অর্ডার জমা হয়েছে · নম্বর {submitState.orderNumber}
+            </p>
+            <dl className="mt-2 grid gap-1 text-sm text-inkbody">
+              <PriceRow label="বেস সেলাই" v={submitState.price.base_price} />
+              {submitState.price.lace_price > 0 && (
+                <PriceRow label="লেইস" v={submitState.price.lace_price} />
+              )}
+              {submitState.price.vat_amount > 0 && (
+                <PriceRow label="ভ্যাট" v={submitState.price.vat_amount} />
+              )}
+              {submitState.price.transportation_price > 0 && (
+                <PriceRow label="ডেলিভারি" v={submitState.price.transportation_price} />
+              )}
+              <PriceRow label="মোট" v={submitState.price.total_price} strong />
+              <PriceRow label="অ্যাডভান্স (৩০%)" v={submitState.price.advance_amount} strong />
+            </dl>
+            <p className="mt-3 text-xs text-inkmuted">
+              অ্যাডভান্সটা এখন হয় ম্যানুয়ালি: আমরা ফোন করে bKash নম্বর জানাবো, অ্যাডভান্স
+              পৌঁছালেই অর্ডার কনফার্ম। অনলাইন পেমেন্ট যোগ হচ্ছে।
+            </p>
+          </div>
+        ) : (
+          <form
+            className="mt-4 grid gap-3"
+            onSubmit={(e) => {
+              e.preventDefault();
+              void submitOrder();
+            }}
           >
-            যোগাযোগ পেজ
-          </a>{" "}
-          থেকে।
-        </p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <label className="grid gap-1.5 text-sm text-inkbody">
+                আপনার নাম
+                <input
+                  required
+                  value={custName}
+                  onChange={(e) => setCustName(e.target.value)}
+                  className="rounded-sm border border-sand/40 bg-card px-3 py-2.5 text-base text-navy-deep outline-none focus:outline-2 focus:outline-rosegold"
+                />
+              </label>
+              <label className="grid gap-1.5 text-sm text-inkbody">
+                ফোন নম্বর
+                <input
+                  required
+                  type="tel"
+                  inputMode="tel"
+                  value={custPhone}
+                  onChange={(e) => setCustPhone(e.target.value.replace(/[^0-9+]/g, ""))}
+                  placeholder="01XXXXXXXXX"
+                  className="rounded-sm border border-sand/40 bg-card px-3 py-2.5 text-base text-navy-deep outline-none focus:outline-2 focus:outline-rosegold"
+                />
+              </label>
+            </div>
+            {submitState.kind === "error" && (
+              <p className="text-sm text-rosegold-deep">{submitState.message}</p>
+            )}
+            <button
+              type="submit"
+              disabled={!ready || submitState.kind === "submitting" || !apiUrl}
+              className="inline-flex w-fit rounded-sm bg-rosegold px-7 py-3 font-medium text-card transition-colors enabled:hover:bg-rosegold-hover disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {submitState.kind === "submitting" ? "জমা হচ্ছে…" : "অর্ডার জমা দিন"}
+            </button>
+            {!apiUrl && (
+              <p className="text-xs text-inkmuted">
+                অর্ডার জমা নেওয়ার সার্ভারটা এখনো চালু হয়নি। ততদিন অর্ডার হয়{" "}
+                <a
+                  href="https://azmirs.com/contact.html"
+                  className="text-rosegold-deep underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  যোগাযোগ পেজ
+                </a>{" "}
+                থেকে।
+              </p>
+            )}
+          </form>
+        )}
       </section>
+    </div>
+  );
+}
+
+function PriceRow({ label, v, strong }: { label: string; v: number; strong?: boolean }) {
+  return (
+    <div className={`flex justify-between ${strong ? "font-medium text-navy-deep" : ""}`}>
+      <span>{label}</span>
+      <span>৳{bnDigits(v)}</span>
     </div>
   );
 }
